@@ -1,10 +1,18 @@
+---
+name: user-story
+about: The first step to take to make a feature is via user story.
+title: ''
+labels: ''
+assignees: ''
+
+---
+
 **As a** [role]  
 **I need** [function]  
 **So that** [benefit]  
       
 ### Details and Assumptions
     * [document what you know]      
-
 ### Acceptance Criteria     
     gherkin 
     Given [some context]
