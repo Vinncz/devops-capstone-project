@@ -50,12 +50,12 @@ def create_accounts():
     account.deserialize(request.get_json())
     account.create()
     message = account.serialize()
-    # Uncomment once get_accounts has been implemented
     # location_url = url_for("get_accounts", account_id=account.id, _external=True)
-    location_url = "/"  # Remove once get_accounts has been implemented
+    location_url = "/"
     return make_response(
         jsonify(message), status.HTTP_201_CREATED, {"Location": location_url}
     )
+
 
 ######################################################################
 # LIST ALL ACCOUNTS
@@ -63,12 +63,18 @@ def create_accounts():
 
 @app.route("/accounts", methods=["GET"])
 def list_accounts():
-    """
-    Lists every Account
-    This endpoint will return a collection of accounts fetched from the data store
-    """
-    app.logger.info("Request to list every Account")
-    check_content_type("application/json")
+    """ Lists every Account """
+    account_list = Account.all()
+    app.logger.info("[%s] accounts found.", len(account_list))
+
+    if len(account_list) == 0:
+        response_status = status.HTTP_200_OK
+        message = account_list
+    else:
+        response_status = status.HTTP_200_OK
+        message = [account.serialize() for account in account_list]
+
+    return jsonify(message), response_status
 
 
 ######################################################################
@@ -110,7 +116,6 @@ def read_account(account_id: int):
 ######################################################################
 #  U T I L I T Y   F U N C T I O N S
 ######################################################################
-
 
 def check_content_type(media_type):
     """Checks that the media type is correct"""
