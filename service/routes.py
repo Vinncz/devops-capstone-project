@@ -61,7 +61,14 @@ def create_accounts():
 # LIST ALL ACCOUNTS
 ######################################################################
 
-# ... place you code here to LIST accounts ...
+@app.route("/accounts", methods=["GET"])
+def list_accounts():
+    """
+    Lists every Account
+    This endpoint will return a collection of accounts fetched from the data store
+    """
+    app.logger.info("Request to list every Account")
+    check_content_type("application/json")
 
 
 ######################################################################
