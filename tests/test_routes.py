@@ -69,6 +69,7 @@ class TestAccountService(TestCase):
             account.id = new_account["id"]
             accounts.append(account)
         return accounts
+        
 
     ######################################################################
     #  A C C O U N T   T E S T   C A S E S
@@ -141,3 +142,20 @@ class TestAccountService(TestCase):
         """It should not Read an Account that is not found"""
         resp = self.client.get(f"{BASE_URL}/0")
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_list_all_accounts(self):
+        """It should List all Accounts"""
+        account_count = 5
+        self._create_accounts(account_count)
+        response = self.client.get(f"{BASE_URL}")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_data = response.get_json()
+        self.assertEqual(len(response_data), account_count)
+
+    def test_list_all_accounts_no_products_found(self):
+        """It should return success status when no account could be found"""
+        response = self.client.get(f"{BASE_URL}")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.get_json()), 0)
+        # Just to be sure
+        self.assertEqual(len(Account.all()), 0)
