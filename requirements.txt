@@ -6,6 +6,7 @@ SQLAlchemy==1.4.46
 Flask==2.1.2
 Flask-SQLAlchemy==2.5.1
 flask-talisman==1.1.0
+flask-cors==6.0.1
 psycopg2-binary==2.9.3
 python-dotenv==0.20.0
 
