@@ -11,9 +11,11 @@ from . import app  # Import Flask application
 
 HEADER_CONTENT_TYPE = "application/json"
 
+
 ############################################################
 # Health Endpoint
 ############################################################
+
 @app.route("/health")
 def health():
     """Health Status"""
@@ -23,6 +25,7 @@ def health():
 ######################################################################
 # GET INDEX
 ######################################################################
+
 @app.route("/")
 def index():
     """Root URL response"""
@@ -39,6 +42,7 @@ def index():
 ######################################################################
 # CREATE A NEW ACCOUNT
 ######################################################################
+
 @app.route("/accounts", methods=["POST"])
 def create_accounts():
     """
