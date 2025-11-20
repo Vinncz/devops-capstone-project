@@ -74,25 +74,30 @@ class TestAccountService(TestCase):
             accounts.append(account)
         return accounts
 
-
     ######################################################################
     #  A C C O U N T   T E S T   C A S E S
     ######################################################################
 
     def test_index(self):
-        """It should get 200_OK from the Home Page"""
+        """
+        It should get 200_OK from the Home Page
+        """
         response = self.client.get("/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_health(self):
-        """It should be healthy"""
+        """
+        It should be healthy
+        """
         resp = self.client.get("/health")
         self.assertEqual(resp.status_code, 200)
         data = resp.get_json()
         self.assertEqual(data["status"], "OK")
 
     def test_create_account(self):
-        """It should Create a new Account"""
+        """
+        It should Create a new Account
+        """
         account = AccountFactory()
         response = self.client.post(
             BASE_URL,
@@ -169,12 +174,14 @@ class TestAccountService(TestCase):
     # MARK: -- Updates
 
     def test_update_account(self):
-        """It should Update an existing Account"""
-        
+        """
+        It should Update an existing Account
+        """
+
         test_account = AccountFactory()
         resp = self.client.post(BASE_URL, json=test_account.serialize())
         self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
-        
+
         new_account = resp.get_json()
         new_account["name"] = "Something Known"
         resp = self.client.put(f"{BASE_URL}/{new_account['id']}", json=new_account)
